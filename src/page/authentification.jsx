@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -9,10 +9,37 @@ export default function Authentification() {
     familyName: '',
     address: '',
     phoneNumber: '',
-    email: ''
+    email: '',
+    password: '',
+    password_confirmation: ''
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [csrfReady, setCsrfReady] = useState(false);
+
+  // Configure axios defaults
+  useEffect(() => {
+    const setupAxios = async () => {
+      try {
+        // Set up axios defaults
+        axios.defaults.withCredentials = true;
+        axios.defaults.headers.common['Accept'] = 'application/json';
+        axios.defaults.headers.common['Content-Type'] = 'application/json';
+        axios.defaults.baseURL = 'http://localhost:8000';
+        
+        // Get CSRF cookie
+        console.log('Fetching CSRF cookie...');
+        const response = await axios.get('/sanctum/csrf-cookie');
+        console.log('CSRF cookie response:', response);
+        setCsrfReady(true);
+      } catch (error) {
+        console.error('Error setting up axios:', error);
+        setErrors({ general: 'Failed to initialize connection to server. Please refresh the page.' });
+      }
+    };
+
+    setupAxios();
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -24,34 +51,63 @@ export default function Authentification() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
+    if (!csrfReady) {
+      setErrors({ general: 'Please wait while we establish a secure connection...' });
+      return;
+    }
+
     setLoading(true);
     setErrors({});
 
+    const requestData = {
+      name: `${formData.name} ${formData.familyName}`,
+      email: formData.email,
+      password: formData.password,
+      password_confirmation: formData.password_confirmation,
+      address: formData.address,
+      phone_number: formData.phoneNumber
+    };
+
+    console.log('Sending registration request with data:', requestData);
+    console.log('Current axios defaults:', {
+      baseURL: axios.defaults.baseURL,
+      headers: axios.defaults.headers.common,
+      withCredentials: axios.defaults.withCredentials
+    });
+
     try {
-      const response = await axios.post('http://localhost:8000/api/register', {
-        name: `${formData.name} ${formData.familyName}`,
-        email: formData.email,
-        address: formData.address,
-        phone_number: formData.phoneNumber
-      });
+      const response = await axios.post('/api/register', requestData);
       
-      // Store user info in localStorage (no token needed without password)
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      console.log('Registration successful:', response.data);
+      
+      // Store the token in localStorage
+      localStorage.setItem('token', response.data.token);
       
       // Redirect to home page or dashboard
       navigate('/');
     } catch (error) {
-      console.log('Full error:', error);
-      console.log('Error response:', error.response?.data);
+      console.error('Registration error:', error);
       
-      if (error.response?.data?.errors) {
-        setErrors(error.response.data.errors);
-      } else if (error.response?.data?.message) {
-        setErrors({ general: error.response.data.message });
-      } else if (error.message) {
-        setErrors({ general: error.message });
+      if (error.response) {
+        console.error('Error response data:', error.response.data);
+        console.error('Error response status:', error.response.status);
+        console.error('Error response headers:', error.response.headers);
+        
+        if (error.response.data?.errors) {
+          setErrors(error.response.data.errors);
+        } else if (error.response.data?.message) {
+          setErrors({ general: error.response.data.message });
+        } else {
+          setErrors({ general: 'Registration failed. Please try again.' });
+        }
+      } else if (error.request) {
+        console.error('Error request:', error.request);
+        console.error('Request config:', error.config);
+        setErrors({ general: 'No response from server. Please check if the server is running at http://localhost:8000' });
       } else {
-        setErrors({ general: 'An error occurred during registration' });
+        console.error('Error message:', error.message);
+        setErrors({ general: error.message });
       }
     } finally {
       setLoading(false);
@@ -123,7 +179,7 @@ export default function Authentification() {
           />
         </div>
 
-        <div className="mb-6">
+        <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
             Email Address:
           </label>
@@ -137,6 +193,37 @@ export default function Authentification() {
             required
           />
           {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email[0]}</p>}
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
+            Password:
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required
+          />
+          {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password[0]}</p>}
+        </div>
+
+        <div className="mb-6">
+          <label htmlFor="password_confirmation" className="block text-gray-700 text-sm font-bold mb-2">
+            Confirm Password:
+          </label>
+          <input
+            type="password"
+            id="password_confirmation"
+            name="password_confirmation"
+            value={formData.password_confirmation}
+            onChange={handleChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required
+          />
         </div>
 
         {errors.general && (
