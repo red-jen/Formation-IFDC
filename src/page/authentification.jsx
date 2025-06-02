@@ -9,9 +9,7 @@ export default function Authentification() {
     familyName: '',
     address: '',
     phoneNumber: '',
-    email: '',
-    password: '',
-    password_confirmation: ''
+    email: ''
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -33,20 +31,25 @@ export default function Authentification() {
       const response = await axios.post('http://localhost:8000/api/register', {
         name: `${formData.name} ${formData.familyName}`,
         email: formData.email,
-        password: formData.password,
-        password_confirmation: formData.password_confirmation,
         address: formData.address,
         phone_number: formData.phoneNumber
       });
       
-      // Store the token in localStorage
-      localStorage.setItem('token', response.data.token);
+      // Store user info in localStorage (no token needed without password)
+      localStorage.setItem('user', JSON.stringify(response.data.user));
       
       // Redirect to home page or dashboard
       navigate('/');
     } catch (error) {
+      console.log('Full error:', error);
+      console.log('Error response:', error.response?.data);
+      
       if (error.response?.data?.errors) {
         setErrors(error.response.data.errors);
+      } else if (error.response?.data?.message) {
+        setErrors({ general: error.response.data.message });
+      } else if (error.message) {
+        setErrors({ general: error.message });
       } else {
         setErrors({ general: 'An error occurred during registration' });
       }
@@ -120,7 +123,7 @@ export default function Authentification() {
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-6">
           <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
             Email Address:
           </label>
@@ -134,37 +137,6 @@ export default function Authentification() {
             required
           />
           {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email[0]}</p>}
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
-            Password:
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-          {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password[0]}</p>}
-        </div>
-
-        <div className="mb-6">
-          <label htmlFor="password_confirmation" className="block text-gray-700 text-sm font-bold mb-2">
-            Confirm Password:
-          </label>
-          <input
-            type="password"
-            id="password_confirmation"
-            name="password_confirmation"
-            value={formData.password_confirmation}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
         </div>
 
         {errors.general && (
@@ -186,4 +158,3 @@ export default function Authentification() {
     </section>
   );
 }
-

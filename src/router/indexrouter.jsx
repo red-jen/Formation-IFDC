@@ -4,7 +4,7 @@ import About from "../page/about.jsx";
 import Notfound from "../page/notfound.jsx";
 import Layout from "../layout/Layout.jsx";
 import Authentification from "../page/authentification.jsx";
-import Register from "../page/Register.jsx";
+
 
 export const router = createBrowserRouter([
  {
@@ -25,10 +25,7 @@ export const router = createBrowserRouter([
         path: "/login",
        element: <div>login page</div>,
        },
-       {
-        path: "/register",
-       element: <Register/>,
-       },
+      
        {
         path: "/dashboard",
        element: <div>dashboard page</div>,
