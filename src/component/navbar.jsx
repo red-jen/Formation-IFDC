@@ -83,12 +83,37 @@ export default function Navbar() {
                                 Actualité
                             </Link>
                         </li>
+                        <li className="text-center mt-8">
+                      <Link 
+                           to="/create-diploma"
+                           className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 inline-block"
+                                    >
+                                 Create New Diploma
+                               </Link>
+                        </li>
+                        
                         <li>
                             <Link
                                 to="/contact"
                                 className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                             >
                                 Contact
+                            </Link>
+                        </li> 
+                         <li>
+                            <Link
+                                to="/diploma-dashboard"
+                                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                            >
+                                diploma dashboard
+                            </Link>
+                        </li>
+                         <li>
+                            <Link
+                                to="/field-dashboard"
+                                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                            >
+                                field panel
                             </Link>
                         </li>
                     </ul>
