@@ -11,9 +11,11 @@ export default function Layout() {
         <div className="min-h-screen">
           <Outlet />
         </div>
+        <Footers />
       </main>
-          <Footers/>
+           
     </div>
+   
   );
 }
 

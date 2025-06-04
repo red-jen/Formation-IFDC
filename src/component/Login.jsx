@@ -1,28 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 
 export default function Login() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    // Clear field-specific errors when user types
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: null }));
-    }
-  };
+  const { login } = useAuth();
+  // ... other state variables ...
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,16 +19,18 @@ export default function Login() {
         password: formData.password,
       });
 
-      // Store user data and token
-      localStorage.setItem('user', JSON.stringify(response.data.user));
-      localStorage.setItem('token', response.data.token);
-      
-      // Set axios default authorization header
-      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+      console.log('🔍 Login: API response:', response.data);
+      console.log('🔍 Login: User data:', response.data.user);
+      console.log('🔍 Login: User role:', response.data.user?.role);
 
-      console.log('Login successful:', response.data);
-      alert('Login successful! Welcome back.');
-   window.location.href = '/';
+      // Use the context login function
+      login(response.data.user, response.data.token);
+
+      // Add a small delay to ensure state is updated
+      setTimeout(() => {
+        console.log('🔍 Login: Navigation triggered');
+        navigate('/');
+      }, 100);
       
     } catch (error) {
       console.error('Login error:', error);
@@ -60,6 +46,8 @@ export default function Login() {
       setLoading(false);
     }
   };
+
+  // ... rest of your component
 
   return (
     <section className="bg-gray-100 min-h-screen flex items-center justify-center py-8">

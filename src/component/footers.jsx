@@ -1,139 +1,222 @@
 import ifdclogo from "../assets/ifdclogo.png"
+
 export default function Footers() {
     const footerNavs = [
         {
-            label: "Company",
+            label: "Services",
             items: [
                 {
-                    href: 'javascript:void()',
-                    name: 'Partners'
+                    href: '/diplomas',
+                    name: 'Formations diplômantes'
                 },
                 {
-                    href: 'javascript:void()',
-                    name: 'Blog'
+                    href: '/vae',
+                    name: 'VAE'
                 },
                 {
-                    href: 'javascript:void()',
-                    name: 'Team'
+                    href: '/conseil',
+                    name: 'Conseil en formation'
                 },
                 {
-                    href: 'javascript:void()',
-                    name: 'Careers'
+                    href: '/support',
+                    name: 'Support'
+                },
+            ],
+        },
+        {
+            label: "À propos",
+            items: [
+                {
+                    href: '/about',
+                    name: 'IFDCE'
+                },
+                {
+                    href: '/international',
+                    name: 'International'
+                },
+                {
+                    href: '/news',
+                    name: 'Actualités'
+                },
+                {
+                    href: '/contact',
+                    name: 'Contact'
+                },
+            ],
+        },
+        {
+            label: "Support",
+            items: [
+                {
+                    href: '/faq',
+                    name: 'FAQ'
+                },
+                {
+                    href: '/documentation',
+                    name: 'Documentation'
+                },
+                {
+                    href: '/aide',
+                    name: 'Aide'
+                },
+                {
+                    href: '/contact',
+                    name: 'Nous contacter'
                 },
             ],
         }
     ]
-        
-    
 
     return (
-        <footer className="text-gray-500 bg-white px-4 py-5 max-w-screen-xl mx-auto md:px-8">
-            <div className="gap-6 justify-between md:flex">
-                <div className="flex-1">
-                    <div className="max-w-xs">
-                        <img src={ifdclogo} className="w-32" />
-                        <p className="leading-relaxed mt-2 text-[15px]">
-                            Adresse : Immeuble N° 22, Rue Jbel Moussa, Agdal, Rabat, Maroc
-                           </p>
-                           <p> 
-                            Email : contact@ifdce.com
-                        </p>
-                    </div>
-                    <form 
-                        onSubmit={(e) => e.preventDefault()}
-                    >
-                        <label className="block pt-4 pb-2">
-                            Stay up to date
-                        </label>
-                        <div className="max-w-sm flex items-center border rounded-md p-1">
-                            <input 
-                                type="email"
-                                placeholder="Enter your email"
-                                className="w-full p-2.5 outline-none"
-                            />
-                            <button
-                                className="p-2.5 rounded-md text-white bg-indigo-600 outline-none shadow-md focus:shadow-none sm:px-5"
-                            >
-                                Subscribe
-                            </button>
+        <footer className="bg-gray-900 text-gray-300 mt-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                {/* Main Footer Content */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    {/* Company Info & Newsletter */}
+                    <div className="lg:col-span-2">
+                        <div className="mb-6">
+                            <img src={ifdclogo} className="h-12 w-auto mb-4" alt="IFDCE Logo" />
+                            <h3 className="text-white text-lg font-semibold mb-3">
+                                Institut de Formation, de Développement de Compétences et d'Excellence
+                            </h3>
+                            <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                                IFDCE vous accompagne dans votre développement professionnel avec des formations 
+                                diplômantes, la VAE et des programmes en ligne reconnus en France et en Europe.
+                            </p>
                         </div>
-                    </form>
-                </div>
-                <div className="flex-1 mt-10 space-y-6 items-center justify-between sm:flex md:space-y-0 md:mt-0">
-                    {
-                        footerNavs.map((item, idx) => (
-                            <ul
-                                className="space-y-4"
-                                key={idx}
+
+                        {/* Contact Info */}
+                        <div className="mb-6">
+                            <h4 className="text-white font-medium mb-3">Contactez-nous</h4>
+                            <div className="space-y-2 text-sm">
+                                <p className="flex items-center">
+                                    <svg className="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    Immeuble N° 22, Rue Jbel Moussa, Agdal, Rabat, Maroc
+                                </p>
+                                <p className="flex items-center">
+                                    <svg className="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                    contact@ifdce.com
+                                </p>
+                                <p className="flex items-center">
+                                    <svg className="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                    </svg>
+                                    +212 6 00 00 00 00
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Newsletter */}
+                        <div>
+                            <h4 className="text-white font-medium mb-3">Newsletter</h4>
+                            <p className="text-gray-400 text-sm mb-3">
+                                Restez informé de nos dernières formations et actualités
+                            </p>
+                            <form 
+                                onSubmit={(e) => e.preventDefault()}
+                                className="flex flex-col sm:flex-row gap-2"
                             >
-                                <h4 className="text-gray-800 font-medium">
-                                    { item.label }
-                                </h4>
-                                {
-                                    item.items.map(((el, idx) => (
-                                        <li key={idx}>
-                                            <a 
-                                                href={el.href}
-                                                className="hover:underline hover:text-indigo-600"
-                                            
-                                            >
-                                                { el.name }
-                                            </a>
-                                        </li>
-                                    )))
-                                }
+                                <input 
+                                    type="email"
+                                    placeholder="Votre adresse email"
+                                    className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+                                <button
+                                    type="submit"
+                                    className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200 whitespace-nowrap"
+                                >
+                                    S'abonner
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    {/* Navigation Links */}
+                    {footerNavs.map((section, idx) => (
+                        <div key={idx}>
+                            <h4 className="text-white font-medium mb-4">{section.label}</h4>
+                            <ul className="space-y-3">
+                                {section.items.map((item, itemIdx) => (
+                                    <li key={itemIdx}>
+                                        <a 
+                                            href={item.href}
+                                            className="text-gray-400 hover:text-white text-sm transition-colors duration-200"
+                                        >
+                                            {item.name}
+                                        </a>
+                                    </li>
+                                ))}
                             </ul>
-                        ))
-                    }
+                        </div>
+                    ))}
+                </div>
+
+                {/* Bottom Section */}
+                <div className="border-t border-gray-800 mt-12 pt-8">
+                    <div className="flex flex-col md:flex-row justify-between items-center">
+                        
+                        {/* Copyright */}
+                        <div className="text-gray-400 text-sm mb-4 md:mb-0">
+                            &copy; 2025 IFDCE. Tous droits réservés.
+                        </div>
+
+                        {/* Social Media */}
+                        <div className="flex items-center space-x-4">
+                            <span className="text-gray-400 text-sm mr-2">Suivez-nous:</span>
+                            
+                            {/* Facebook */}
+                            <a 
+                                href="#" 
+                                className="w-8 h-8 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200"
+                                aria-label="Facebook"
+                            >
+                                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </a>
+
+                            {/* Twitter */}
+                            <a 
+                                href="#" 
+                                className="w-8 h-8 bg-gray-800 hover:bg-blue-400 rounded-full flex items-center justify-center transition-colors duration-200"
+                                aria-label="Twitter"
+                            >
+                                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                </svg>
+                            </a>
+
+                            {/* LinkedIn */}
+                            <a 
+                                href="#" 
+                                className="w-8 h-8 bg-gray-800 hover:bg-blue-700 rounded-full flex items-center justify-center transition-colors duration-200"
+                                aria-label="LinkedIn"
+                            >
+                                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                            </a>
+
+                            {/* YouTube */}
+                            <a 
+                                href="#" 
+                                className="w-8 h-8 bg-gray-800 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors duration-200"
+                                aria-label="YouTube"
+                            >
+                                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className="mt-8 py-6 border-t items-center justify-between sm:flex">
-                <div className="mt-4 sm:mt-0">
-                    &copy; 2025 IFDC All rights reserved.
-                </div>
-                <div className="mt-6 sm:mt-0">
-                    <ul className="flex items-center space-x-4">
-                        <li className="w-10 h-10 border rounded-full flex items-center justify-center">
-                            <a href="javascript:void()">
-                                <svg class="svg-icon w-6 h-6 text-blue-400" viewBox="0 0 20 20">
-                                    <path fill="none" d="M18.258,3.266c-0.693,0.405-1.46,0.698-2.277,0.857c-0.653-0.686-1.586-1.115-2.618-1.115c-1.98,0-3.586,1.581-3.586,3.53c0,0.276,0.031,0.545,0.092,0.805C6.888,7.195,4.245,5.79,2.476,3.654C2.167,4.176,1.99,4.781,1.99,5.429c0,1.224,0.633,2.305,1.596,2.938C2.999,8.349,2.445,8.19,1.961,7.925C1.96,7.94,1.96,7.954,1.96,7.97c0,1.71,1.237,3.138,2.877,3.462c-0.301,0.08-0.617,0.123-0.945,0.123c-0.23,0-0.456-0.021-0.674-0.062c0.456,1.402,1.781,2.422,3.35,2.451c-1.228,0.947-2.773,1.512-4.454,1.512c-0.291,0-0.575-0.016-0.855-0.049c1.588,1,3.473,1.586,5.498,1.586c6.598,0,10.205-5.379,10.205-10.045c0-0.153-0.003-0.305-0.01-0.456c0.7-0.499,1.308-1.12,1.789-1.827c-0.644,0.28-1.334,0.469-2.06,0.555C17.422,4.782,17.99,4.091,18.258,3.266"></path>
-                                </svg>
-                            </a>
-                        </li>
-
-                        <li className="w-10 h-10 border rounded-full flex items-center justify-center">
-                            <a href="javascript:void()">
-                                <svg class="svg-icon w-6 h-6 text-blue-700" viewBox="0 0 20 20">
-                                    <path fill="none" d="M11.344,5.71c0-0.73,0.074-1.122,1.199-1.122h1.502V1.871h-2.404c-2.886,0-3.903,1.36-3.903,3.646v1.765h-1.8V10h1.8v8.128h3.601V10h2.403l0.32-2.718h-2.724L11.344,5.71z"></path>
-                                </svg>
-                            </a>
-                        </li>
-
-                        <li className="w-10 h-10 border rounded-full flex items-center justify-center">
-                            <a href="javascript:void()">
-                                <svg class="svg-icon w-6 h-6 text-blue-500" viewBox="0 0 20 20">
-                                    <path fill="none" d="M10,2.531c-4.125,0-7.469,3.344-7.469,7.469c0,4.125,3.344,7.469,7.469,7.469c4.125,0,7.469-3.344,7.469-7.469C17.469,5.875,14.125,2.531,10,2.531 M10,3.776c1.48,0,2.84,0.519,3.908,1.384c-1.009,0.811-2.111,1.512-3.298,2.066C9.914,6.072,9.077,5.017,8.14,4.059C8.728,3.876,9.352,3.776,10,3.776 M6.903,4.606c0.962,0.93,1.82,1.969,2.53,3.112C7.707,8.364,5.849,8.734,3.902,8.75C4.264,6.976,5.382,5.481,6.903,4.606 M3.776,10c2.219,0,4.338-0.418,6.29-1.175c0.209,0.404,0.405,0.813,0.579,1.236c-2.147,0.805-3.953,2.294-5.177,4.195C4.421,13.143,3.776,11.648,3.776,10 M10,16.224c-1.337,0-2.572-0.426-3.586-1.143c1.079-1.748,2.709-3.119,4.659-3.853c0.483,1.488,0.755,3.071,0.784,4.714C11.271,16.125,10.646,16.224,10,16.224 M13.075,15.407c-0.072-1.577-0.342-3.103-0.806-4.542c0.673-0.154,1.369-0.243,2.087-0.243c0.621,0,1.22,0.085,1.807,0.203C15.902,12.791,14.728,14.465,13.075,15.407 M14.356,9.378c-0.868,0-1.708,0.116-2.515,0.313c-0.188-0.464-0.396-0.917-0.621-1.359c1.294-0.612,2.492-1.387,3.587-2.284c0.798,0.97,1.302,2.187,1.395,3.517C15.602,9.455,14.99,9.378,14.356,9.378"></path>
-                                </svg>
-                            </a>
-                        </li>
-
-                        <li className="w-10 h-10 border rounded-full flex items-center justify-center">
-                            <a href="javascript:void()">
-                                <svg class="svg-icon w-6 h-6 text-red-600" viewBox="0 0 20 20">
-                                    <path fill="none" d="M9.797,2.214C9.466,2.256,9.134,2.297,8.802,2.338C8.178,2.493,7.498,2.64,6.993,2.935C5.646,3.723,4.712,4.643,4.087,6.139C3.985,6.381,3.982,6.615,3.909,6.884c-0.48,1.744,0.37,3.548,1.402,4.173c0.198,0.119,0.649,0.332,0.815,0.049c0.092-0.156,0.071-0.364,0.128-0.546c0.037-0.12,0.154-0.347,0.127-0.496c-0.046-0.255-0.319-0.416-0.434-0.62C5.715,9.027,5.703,8.658,5.59,8.101c0.009-0.075,0.017-0.149,0.026-0.224C5.65,7.254,5.755,6.805,5.948,6.362c0.564-1.301,1.47-2.025,2.931-2.458c0.327-0.097,1.25-0.252,1.734-0.149c0.289,0.05,0.577,0.099,0.866,0.149c1.048,0.33,1.811,0.938,2.218,1.888c0.256,0.591,0.33,1.725,0.154,2.483c-0.085,0.36-0.072,0.667-0.179,0.993c-0.397,1.206-0.979,2.323-2.295,2.633c-0.868,0.205-1.519-0.324-1.733-0.869c-0.06-0.151-0.161-0.418-0.101-0.671c0.229-0.978,0.56-1.854,0.815-2.831c0.243-0.931-0.218-1.665-0.943-1.837C8.513,5.478,7.816,6.312,7.579,6.858C7.39,7.292,7.276,8.093,7.426,8.672c0.047,0.183,0.269,0.674,0.23,0.844c-0.174,0.755-0.372,1.568-0.587,2.31c-0.223,0.771-0.344,1.562-0.56,2.311c-0.1,0.342-0.096,0.709-0.179,1.066v0.521c-0.075,0.33-0.019,0.916,0.051,1.242c0.045,0.209-0.027,0.467,0.076,0.621c0.002,0.111,0.017,0.135,0.052,0.199c0.319-0.01,0.758-0.848,0.917-1.094c0.304-0.467,0.584-0.967,0.816-1.514c0.208-0.494,0.241-1.039,0.408-1.566c0.12-0.379,0.292-0.824,0.331-1.24h0.025c0.066,0.229,0.306,0.395,0.485,0.52c0.56,0.4,1.525,0.77,2.573,0.523c1.188-0.281,2.133-0.838,2.755-1.664c0.457-0.609,0.804-1.313,1.07-2.112c0.131-0.392,0.158-0.826,0.256-1.241c0.241-1.043-0.082-2.298-0.384-2.981C14.847,3.35,12.902,2.17,9.797,2.214"></path>
-                                </svg>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <style jsx>{`
-                .svg-icon path,
-                .svg-icon polygon,
-                .svg-icon rect {
-                    fill: currentColor;
-                }
-            `}</style>
         </footer>
     )
 }

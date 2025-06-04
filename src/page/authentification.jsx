@@ -11,6 +11,8 @@ export default function Authentification() {
     address: '',
     phoneNumber: '',
     email: '',
+    password: '',
+    password_confirmation: '',
   });
   const [diplomas, setDiplomas] = useState([]);
   const [selectedDiploma, setSelectedDiploma] = useState(null);
@@ -18,6 +20,8 @@ export default function Authentification() {
   const [selectedFields, setSelectedFields] = useState([]);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const totalSteps = 4;
 
@@ -85,6 +89,13 @@ export default function Authentification() {
         if (!formData.familyName.trim()) newErrors.familyName = ['Family name is required'];
         if (!formData.email.trim()) newErrors.email = ['Email is required'];
         else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = ['Email is invalid'];
+        
+        // Password validation
+        if (!formData.password.trim()) newErrors.password = ['Password is required'];
+        else if (formData.password.length < 8) newErrors.password = ['Password must be at least 8 characters'];
+        
+        if (!formData.password_confirmation.trim()) newErrors.password_confirmation = ['Password confirmation is required'];
+        else if (formData.password !== formData.password_confirmation) newErrors.password_confirmation = ['Passwords do not match'];
         break;
       case 2:
         if (!formData.address.trim()) newErrors.address = ['Address is required'];
@@ -127,6 +138,8 @@ export default function Authentification() {
       const response = await axios.post('/api/register', {
         name: `${formData.name} ${formData.familyName}`,
         email: formData.email,
+        password: formData.password,
+        password_confirmation: formData.password_confirmation,
         address: formData.address,
         phone_number: formData.phoneNumber,
         diploma_fields: diplomaFields
@@ -239,9 +252,80 @@ export default function Authentification() {
         />
         {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email[0]}</p>}
       </div>
+
+      {/* Password Fields */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
+            Password *
+          </label>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className={`shadow appearance-none border rounded w-full py-2 px-3 pr-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                errors.password ? 'border-red-500' : ''
+              }`}
+              placeholder="Enter your password"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center"
+            >
+              <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {showPassword ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                )}
+              </svg>
+            </button>
+          </div>
+          {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password[0]}</p>}
+          <p className="text-xs text-gray-500 mt-1">Must be at least 8 characters</p>
+        </div>
+
+        <div>
+          <label htmlFor="password_confirmation" className="block text-gray-700 text-sm font-bold mb-2">
+            Confirm Password *
+          </label>
+          <div className="relative">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              id="password_confirmation"
+              name="password_confirmation"
+              value={formData.password_confirmation}
+              onChange={handleChange}
+              className={`shadow appearance-none border rounded w-full py-2 px-3 pr-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                errors.password_confirmation ? 'border-red-500' : ''
+              }`}
+              placeholder="Confirm your password"
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center"
+            >
+              <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {showConfirmPassword ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                )}
+              </svg>
+            </button>
+          </div>
+          {errors.password_confirmation && <p className="text-red-500 text-xs mt-1">{errors.password_confirmation[0]}</p>}
+        </div>
+      </div>
     </div>
   );
 
+  // Keep the other render methods (renderStep2, renderStep3, renderStep4) the same...
   const renderStep2 = () => (
     <div className="space-y-4">
       <h3 className="text-lg font-semibold text-gray-800 mb-4">Contact Information</h3>

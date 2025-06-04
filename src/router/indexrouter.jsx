@@ -1,58 +1,94 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../page/home.jsx";
-import About from "../page/about.jsx";
+import Layout from "../component/layout";
+import Home from "../page/home";
+import About from "../page/about";
+import Authentification from "../page/authentification";
+import Login from "../page/Login";
+import DiplomaDashboard from "../page/DiplomaDashboard";
+import CreateDiploma from "../page/CreateDiploma";
+import { ProtectedRoute, AdminRoute } from "../component/ProtectedRoute";
+import FieldDashboard from "../page/FieldDashboard";
+// import About from "../page/about.jsx";
 import Notfound from "../page/notfound.jsx";
-import Layout from "../layout/Layout.jsx";
-import Authentification from "../page/authentification.jsx";
-import CreateDiploma from "../page/CreateDiploma.jsx"; 
-import FieldDashboard from "../page/FieldDashboard.jsx"; // Add this import
-import DiplomaDashboard from "../page/DiplomaDashboard.jsx";
-
-
+import AdminDashboard from "../component/AdminDashboard";
+import Contact from "../page/contact";
+import Technicien from '../page/Technicien'; // Add this import
+import TechnicienSuperieur  from "../page/TechnicienSuperieur.jsx"; 
 
 export const router = createBrowserRouter([
- {
-  element : <Layout/>,
-  children : [{
-    path: "/",
-    element: <Home/>,
-  },
-  {
-    path: "/about",
-    element: <About/>,
-  },
-  {
-    path: "/contact",
-    element: <div>contact page</div>,
-    },
     {
-        path: "/login",
-       element: <div>login page</div>,
-       },
-      
-       {
-  path: "/field-dashboard",
-  element: <FieldDashboard/>,
+        element: <Layout />,
+        children: [
+            {
+                path: "/",
+                element: <Home />,
+            },
+            {
+                path: "/about",
+                element: <About />,
+            },
+            {
+                path: "/login",
+                element: <Login />,
+            },
+             {
+                path: "/admin-dashboard",
+                element: <AdminDashboard />,
+            },
+             {
+                path: "/Technicien",
+                element: <Technicien />,
+            },
+            {
+                path: "/authentification",
+                element: <Authentification />,
+            },
+             {
+                path: "/TechnicienSuperieur",
+                element: <TechnicienSuperieur />,
+            },
+            {
+    path: "/contact",
+    element: <Contact />,
 },
-{
-  path: "/diploma-dashboard",
-  element: <DiplomaDashboard/>,
-},
-       {
+            // Protected Admin Routes
+            {
+                path: "/diploma-dashboard",
+                element: (
+                    <AdminRoute>
+                        <DiplomaDashboard />
+                    </AdminRoute>
+                ),
+            },
+            {
+                path: "/field-dashboard",
+                element: (
+                    <AdminRoute>
+                        <FieldDashboard/>
+                    </AdminRoute>
+                ),
+            },
+            {
+                path: "/create-diploma",
+                element: (
+                    <AdminRoute>
+                        <CreateDiploma />
+                    </AdminRoute>
+                ),
+            },
+            {
         path: '*',
        element: <Notfound/>,
        },
-       {
-    path: "/create-diploma", // Add this route
-    element: <CreateDiploma/>,
-  },
-       {
-        path: '/authentification',
-        element: <Authentification/>,
-       },
-       ]},
-       ])
-      
-
-
-        
+            // Protected User Routes
+            {
+                path: "/profile",
+                element: (
+                    <ProtectedRoute>
+                        <div>User Profile (Create this component)</div>
+                    </ProtectedRoute>
+                ),
+            },
+        ],
+    },
+]);

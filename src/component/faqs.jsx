@@ -37,17 +37,17 @@ export default function Faqs() {
                     Nous avons répondu à toutes les questions fréquemment posées. Toujours confus ? N'hésitez pas à nous contacter.
                 </p>
             </div>
-            <div className="mt-14 gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-14 gap-4 sm:grid sm:grid-cols-2 ">
                 {
                     faqsList.map((item, idx) => (
                         <div 
                             className="space-y-3 mt-5"
                             key={idx}
                         >
-                            <h4 className="text-xl text-gray-700 font-medium">
+                            <h4 className="text-2xl text-gray-700 font-medium mr-0">
                                 {item.q}
                             </h4>
-                            <p className="text-gray-500">
+                            <p className="text-gray-500 ml-0">
                                 {item.a}
                             </p>
                         </div>
